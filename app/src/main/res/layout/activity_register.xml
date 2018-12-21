@@ -12,26 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp"><![CDATA[
-
-
-
-        ayout>
-
-
-
-
-        ]]>
-
-        <!--
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mobile No."
-            android:id="@+id/textView4"
-            android:layout_marginTop="20dp"
-
-            /> -->
+        android:paddingRight="24dp">
 
         <EditText
             android:layout_width="match_parent"
@@ -61,15 +42,16 @@
             android:textColorHint="#cccccc"
             android:id="@+id/etLoginid" />
 
-        <!--
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Password"
-            android:id="@+id/textView5"
-            android:layout_marginTop="20dp"
+            android:inputType="number"
+            android:ems="2"
+            android:textColor="@color/inputtextcolor"
+            android:hint="Enter Your Age "
+            android:textColorHint="#cccccc"
+            android:id="@+id/etAge" />
 
-            /> -->
 
         <EditText
             android:layout_width="match_parent"

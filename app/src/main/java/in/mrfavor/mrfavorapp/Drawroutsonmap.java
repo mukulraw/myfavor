@@ -155,7 +155,7 @@ public class Drawroutsonmap extends AppCompatActivity implements OnMapReadyCallb
         getSupportActionBar().setTitle(" Mr. Favor");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.iclogo);
+        getSupportActionBar().setIcon(R.drawable.resize_iclogo);
         SharedPreferences pref = getSharedPreferences("Logininfo", Context.MODE_PRIVATE);
         userid = pref.getString("useremail", null);
         cartype = "Micro";

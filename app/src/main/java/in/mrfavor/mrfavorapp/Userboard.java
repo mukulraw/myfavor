@@ -180,8 +180,8 @@ public class Userboard extends AppCompatActivity implements NavigationView.OnNav
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.iclogo);
-        getSupportActionBar().setTitle("Mr. Favor");
+        getSupportActionBar().setIcon(R.drawable.resize_iclogo);
+        getSupportActionBar().setTitle("  Mr. Favor");
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

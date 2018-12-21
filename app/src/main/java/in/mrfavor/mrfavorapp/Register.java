@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myfavourcarpooling.easycarpooling.R;
 
@@ -31,7 +32,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Register extends AppCompatActivity {
     Button register;
-    EditText mobileno,loginid,password;
+    EditText mobileno,loginid,password,age;
     TextView signin,signin2;
 
     @Override
@@ -45,6 +46,7 @@ public class Register extends AppCompatActivity {
         mobileno = (EditText) findViewById(R.id.etMobileno);
         loginid = (EditText) findViewById(R.id.etLoginid);
         password = (EditText) findViewById(R.id.etPassword);
+        age =(EditText) findViewById(R.id.etAge);
 
 
        signin = (TextView) findViewById(R.id.link_signin);
@@ -91,6 +93,12 @@ public class Register extends AppCompatActivity {
                 {
                     validation++;
                     password.setError("Please enter password.");
+                }
+                if (Integer.valueOf(age.getText().toString())<18)
+                {
+                    validation++;
+                    age.setError("Age should be more than 18");
+                    Toast.makeText(Register.this, "Your are below 18", Toast.LENGTH_SHORT).show();
                 }
 
                 if(validation==0) {

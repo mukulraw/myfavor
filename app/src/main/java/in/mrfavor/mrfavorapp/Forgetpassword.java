@@ -49,7 +49,7 @@ public class Forgetpassword extends AppCompatActivity {
         ab.setTitle("Forgot Password");
         ab.setHomeButtonEnabled(true);
         ab.setDisplayHomeAsUpEnabled(true);
-       ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
 
         etemail = (EditText) findViewById(R.id.etEmail);
         Button btn = (Button) findViewById(R.id.btn_login);
@@ -57,7 +57,6 @@ public class Forgetpassword extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/tcb.ttf");
 
         btn.setTypeface(custom_font);
-
 
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +70,7 @@ public class Forgetpassword extends AppCompatActivity {
                 }
 
 
-                if(validation==0) {
+                if (validation == 0) {
                     new SendPostRequest(etemail.getText().toString()).execute();
                 }
 
@@ -85,6 +84,7 @@ public class Forgetpassword extends AppCompatActivity {
     public class SendPostRequest extends AsyncTask<String, Void, String> {
         String emailid;
         ProgressDialog pd;
+
         public SendPostRequest(String id) {
             this.emailid = id;
         }
@@ -99,10 +99,10 @@ public class Forgetpassword extends AppCompatActivity {
 
             try {
                 String baseurl = getResources().getString(R.string.baseurl);
-                URL url = new URL(baseurl+"/myfavour/forgetpass.php"); // here is your URL path
+                URL url = new URL(baseurl + "/myfavour/forgetpass.php"); // here is your URL path
 
                 JSONObject postDataParams = new JSONObject();
-                postDataParams.put("email",emailid);
+                postDataParams.put("email", emailid);
                 Log.e("params", postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -153,26 +153,21 @@ public class Forgetpassword extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            if(s.contains("ok"))
-            {
+            if (s.contains("ok")) {
 
-            showalert("Your password is recoverd successfully and sent on "+etemail.getText()+". Please check your email.");
+                showalert("Your password is recoverd successfully and sent on " + etemail.getText() + ". Please check your email.");
 
-            }
-            else
-            {
+            } else {
                 showalert(s);
 
             }
 
-            if (pd != null)
-            {
+            if (pd != null) {
                 pd.dismiss();
             }
 
 
         }
-
 
 
         private void showalert(String s) {
@@ -181,19 +176,19 @@ public class Forgetpassword extends AppCompatActivity {
                     Forgetpassword.this).create();
 
             // Setting Dialog Title
-           // alertDialog.setTitle("System Message");
+            // alertDialog.setTitle("System Message");
 
             // Setting Dialog Message
             alertDialog.setMessage(s);
 
             // Setting Icon to Dialog
-          //  alertDialog.setIcon(R.drawable.warning);
+            //  alertDialog.setIcon(R.drawable.warning);
 
             // Setting OK Button
             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
-                  //  Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -212,9 +207,9 @@ public class Forgetpassword extends AppCompatActivity {
 
         Iterator<String> itr = params.keys();
 
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
 
-            String key= itr.next();
+            String key = itr.next();
             Object value = params.get(key);
 
             if (first)
@@ -242,10 +237,10 @@ public class Forgetpassword extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int i = item.getItemId();
- if(i==R.id.action_settings) {
-     Intent ia = new Intent(Forgetpassword.this,LoginRegister.class);
-     startActivity(ia);
- }
+        if (i == R.id.action_settings) {
+            Intent ia = new Intent(Forgetpassword.this, LoginRegister.class);
+            startActivity(ia);
+        }
         return true;
 
     }
