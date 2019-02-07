@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@drawable/bgwologo"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.myfavourcarpooling.easycarpooling.in.myfavourcarpooling.easycarpooling.Otpverify">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+
+        >
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="OTP"
+        android:typeface="monospace"
+        android:id="@+id/textView6"
+        android:textColor="#fff"
+
+ />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:typeface="monospace"
+            android:id="@+id/etOTP"
+            android:textColor="@color/inputtextcolor"
+
+/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+
+        >
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_weight=".4"
+        android:layout_height="wrap_content"
+        android:text="Verify OTP"
+        android:typeface="monospace"
+        android:id="@+id/btnverifyotp"
+        android:background="@drawable/button_bg"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/textcolor"
+/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_weight=".4"
+        android:layout_height="wrap_content"
+        android:text="Re-send OTP"
+        android:layout_marginLeft="10dp"
+        android:typeface="monospace"
+        android:background="@drawable/button_bg"
+        android:id="@+id/btnRegenerateOTP"
+        android:textColor="@color/textcolor"
+    />
+
+  </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

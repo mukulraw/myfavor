@@ -1,0 +1,90 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/content_frame"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.myfavourcarpooling.easycarpooling.in.myfavourcarpooling.easycarpooling.Fragment_passenger_home">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:typeface="monospace"
+
+            android:drawableLeft="@drawable/customericon"
+            android:text="Customer Name"
+            android:gravity="center_vertical"
+
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/tvStartride"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:drawableLeft="@drawable/greenmarker"
+            android:drawablePadding="8dp"
+            android:text="Pick address"
+            android:typeface="monospace"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/tvEndride"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:drawableLeft="@drawable/redmarker"
+            android:drawablePadding="8dp"
+            android:text="Drop address"
+            android:gravity="center_vertical"
+            android:typeface="monospace"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="4dp"
+            android:textSize="14dp"/>
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="40dp"
+            />
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+           android:layout_alignParentBottom="true"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:typeface="monospace"
+            android:layout_height="40dp"
+            android:text="Confirm"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_bg"
+            android:id="@+id/btn_confirm"
+            android:textColor="@color/textcolor"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
+</FrameLayout>

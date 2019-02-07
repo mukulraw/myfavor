@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Mr Favor</string>
+    <string name="title_activity_userboard">Dashboard</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_driver_panel">DriverPanel</string>
+    <string name="title_activity_drawroutsonmap">Map</string>
+    <string name="baseurl">http://www.mrfavor.in</string>
+    <string name="domainname">mrfavor.in</string>
+    <string name="title_activity_my">MyActivity</string>
+    <string name="title_activity_myy">MyyActivity</string>
+    <string name="title_activity_main234">MainActivity234</string>
+    <string name="change">Change</string>
+    <string name="access_code">Access Code</string>
+    <string name="pay_button">Pay</string>
+    <string name="merchant_id">Merchant Id</string>
+    <string name="currency">Currency</string>
+    <string name="amount">Amount</string>
+    <string name="redirect_url">Redirect Url</string>
+    <string name="cancel_url">Cancel Url</string>
+    <string name="rsa_url">RSA Key Url</string>
+    <string name="facebook_app_id">625277534591613</string>
+    <string name="fb_login_protocol_scheme">fb625277534591613</string>
+
+</resources>

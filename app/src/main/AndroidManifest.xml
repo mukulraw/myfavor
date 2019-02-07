@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.myfavourcarpooling.easycarpooling">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Required to show current location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <permission
+        android:name="com.myfavourcarpooling.easycarpooling.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.myfavourcarpooling.easycarpooling.permission.MAPS_RECEIVE" />
+
+    <application
+        android:name="in.mrfavor.mrfavorapp.bean"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name="in.mrfavor.mrfavorapp.Terms"></activity>
+        <activity android:name="in.mrfavor.mrfavorapp.SplachActivity" />
+        <activity android:name="in.mrfavor.mrfavorapp.MapActivity" />
+        <activity android:name="in.mrfavor.mrfavorapp.GetLocationActivity" />
+        <activity android:name="in.mrfavor.mrfavorapp.LoginRegister" />
+        <activity android:name="in.mrfavor.mrfavorapp.GeoLocationbygooglemap" />
+        <activity android:name="in.mrfavor.mrfavorapp.Login" />
+        <activity android:name="in.mrfavor.mrfavorapp.Register" />
+        <activity android:name="in.mrfavor.mrfavorapp.Otpverify" />
+        <activity android:name="in.mrfavor.mrfavorapp.Userpanel" />
+        <activity android:name="in.mrfavor.mrfavorapp.Fragment_passenger_history" />
+        <activity
+            android:name="in.mrfavor.mrfavorapp.Userboard"
+            android:label="@string/title_activity_userboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="in.mrfavor.mrfavorapp.Registerbasicdetails" />
+        <activity android:name="in.mrfavor.mrfavorapp.Firstactivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="in.mrfavor.mrfavorapp.Ratecard" />
+        <activity
+            android:name="in.mrfavor.mrfavorapp.DriverPanel"
+            android:label="@string/title_activity_driver_panel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="in.mrfavor.mrfavorapp.Forgetpassword" />
+        <activity android:name="in.mrfavor.mrfavorapp.NewLocationautocomplet" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBc5BKE1OW-9_IV39xiyTab5H7YG21awgw" />
+
+        <activity android:name="in.mrfavor.mrfavorapp.DroplocationAutocomplet" />
+        <activity
+            android:name="in.mrfavor.mrfavorapp.Drawroutsonmap"
+            android:label="@string/title_activity_drawroutsonmap" />
+
+        <service android:name="in.mrfavor.mrfavorapp.Servicefordriver" />
+
+        <activity android:name="in.mrfavor.mrfavorapp.Bookingconfirmationalert" />
+        <activity
+            android:name="in.mrfavor.mrfavorapp.Cancelridebydriver"
+            android:theme="@style/myDialog" />
+        <activity
+            android:name="in.mrfavor.mrfavorapp.MyActivity"
+            android:label="@string/title_activity_my" /> <!-- android:theme="@android:style/Theme.Translucent" -->
+        <!-- <activity -->
+        <!-- android:name="in.mrfavor.mrfavorapp.MyyActivity" -->
+        <!-- android:label="@string/title_activity_myy" /> -->
+        <activity
+            android:name="in.mrfavor.mrfavorapp.MainActivity234"
+            android:label="@string/title_activity_main234" />
+        <activity android:name="in.mrfavor.mrfavorapp.AddFav" />
+        <activity android:name="in.mrfavor.mrfavorapp.UploadDocument" />
+        <activity android:name="in.mrfavor.mrfavorapp.AcceptAcivity" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="in.mrfavor.mrfavorapp.InitialScreenActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="in.mrfavor.mrfavorapp.WebViewActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="in.mrfavor.mrfavorapp.StatusActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+    </application>
+
+</manifest>
