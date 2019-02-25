@@ -153,7 +153,35 @@ public class DriverPanel extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        rideRequest();
+
+        if (SharePreferenceUtils.getInstance().getString("session").equals("1"))
+        {
+            String picpoint = SharePreferenceUtils.getInstance().getString("picpoint");
+            String droppoint = SharePreferenceUtils.getInstance().getString("droppoint");
+            String custname = SharePreferenceUtils.getInstance().getString("custname");
+            String contactnumber = SharePreferenceUtils.getInstance().getString("contactnumber");
+            Double piclat = SharePreferenceUtils.getInstance().getDouble("piclat");
+            Double piclng = SharePreferenceUtils.getInstance().getDouble("piclng");
+            Double droplat = SharePreferenceUtils.getInstance().getDouble("droplat");
+            Double droplng = SharePreferenceUtils.getInstance().getDouble("droplng");
+            String rideID = SharePreferenceUtils.getInstance().getString("rideID");
+
+
+            final LatLng startlatlng = new LatLng(Double.parseDouble(String.valueOf(piclat)),Double.parseDouble(String.valueOf(piclng)));
+            final LatLng endlatlng = new LatLng(Double.parseDouble(String.valueOf(droplat)),Double.parseDouble(String.valueOf(droplng)));
+
+            acceptbooking(picpoint , droppoint , custname , contactnumber , startlatlng , endlatlng , rideID);
+
+
+        }
+        else
+        {
+            rideRequest();
+        }
+
+
+
+
 
     }
 
@@ -685,7 +713,13 @@ public class DriverPanel extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-        stopLocationUpdates();
+        try {
+            stopLocationUpdates();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     protected void stopLocationUpdates() {

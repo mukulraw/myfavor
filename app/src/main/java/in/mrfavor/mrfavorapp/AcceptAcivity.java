@@ -122,6 +122,13 @@ public class AcceptAcivity extends AppCompatActivity implements OnMapReadyCallba
         mMapView.onResume(); // needed to get the map to display immediately
        mMapView.getMapAsync(this);
 
+
+       if (SharePreferenceUtils.getInstance().getString("session").equals("1"))
+       {
+           afterpostrequest();
+       }
+
+
     }
 
 
@@ -147,6 +154,17 @@ public class AcceptAcivity extends AppCompatActivity implements OnMapReadyCallba
 
     public void afterpostrequest()
     {
+        SharePreferenceUtils.getInstance().putString("picpoint",picloc);
+        SharePreferenceUtils.getInstance().putString("droppoint",droploc);
+        SharePreferenceUtils.getInstance().putString("custname",custname);
+        SharePreferenceUtils.getInstance().putString("contactnumber",contactnumber);
+        SharePreferenceUtils.getInstance().putDouble("piclat",piclat);
+        SharePreferenceUtils.getInstance().putDouble("piclng",piclng);
+        SharePreferenceUtils.getInstance().putDouble("droplat",droplat);
+        SharePreferenceUtils.getInstance().putDouble("droplng",droplng);
+        SharePreferenceUtils.getInstance().putString("rideID",rideID);
+        SharePreferenceUtils.getInstance().putString("session","1");
+
         LatLng startlatlng = new LatLng(piclat,piclng);
         LatLng endlatlng = new LatLng(droplat,droplng);
         DriverPanel dd=new DriverPanel();
@@ -174,7 +192,7 @@ public class AcceptAcivity extends AppCompatActivity implements OnMapReadyCallba
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(R.id.content_frame, fragment);
-            ft.addToBackStack(null);
+            //ft.addToBackStack(null);
             ft.commit();
         }
 
@@ -242,7 +260,12 @@ public class AcceptAcivity extends AppCompatActivity implements OnMapReadyCallba
         String sensor = "sensor=false";
 
         // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor;
+
+        String GOOGLE_API_KEY = "AIzaSyBc5BKE1OW-9_IV39xiyTab5H7YG21awgw";
+
+        // Building the paramet
+        // ers to the web service
+        String parameters = str_origin + "&" + str_dest + "&key=" + GOOGLE_API_KEY;
 
         // Output format
         String output = "json";

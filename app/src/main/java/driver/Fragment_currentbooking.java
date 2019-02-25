@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import in.mrfavor.mrfavorapp.AcceptAcivity;
 import in.mrfavor.mrfavorapp.Cancelridebydriver;
 import in.mrfavor.mrfavorapp.DataParser;
+import in.mrfavor.mrfavorapp.SharePreferenceUtils;
 
 import com.myfavourcarpooling.easycarpooling.R;
 
@@ -102,6 +103,9 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         btncancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SharePreferenceUtils.getInstance().deletePref();
+
                 Intent i = new Intent(getActivity(), Cancelridebydriver.class);
                 i.putExtra("ride",rideID);
                 startActivity(i);
@@ -136,6 +140,7 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         btnendride.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharePreferenceUtils.getInstance().deletePref();
                 getlocationAndPostRequest("endRideRequest");
             }
         });
@@ -329,7 +334,11 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         // Sensor enabled
         String sensor = "sensor=false";
         // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor;
+            String GOOGLE_API_KEY = "AIzaSyBc5BKE1OW-9_IV39xiyTab5H7YG21awgw";
+
+            // Building the paramet
+            // ers to the web service
+            String parameters = str_origin + "&" + str_dest + "&key=" + GOOGLE_API_KEY;
         // Output format
         String output = "json";
         // Building the url to the web service
