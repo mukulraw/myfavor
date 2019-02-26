@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -94,6 +95,7 @@ public class Drawroutsonmap extends AppCompatActivity implements OnMapReadyCallb
 
     ImageButton info;
 
+    String pm;
     String time , fare;
 
     @Override
@@ -246,8 +248,50 @@ public class Drawroutsonmap extends AppCompatActivity implements OnMapReadyCallb
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                km = totalkm + "";
-                new SendPostRequest(userid, ""+pick_lat, ""+pick_lng, ""+pick, ""+drop_lat, ""+drop_lng, drop, km).execute();
+
+
+                final Dialog dialog = new Dialog(Drawroutsonmap.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.dialog_layout);
+                dialog.show();
+
+                final RadioGroup group = dialog.findViewById(R.id.radioGroup);
+                Button ok = dialog.findViewById(R.id.button5);
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        int iidd = group.getCheckedRadioButtonId();
+
+                        if (iidd > -1)
+                        {
+
+                            if (iidd == R.id.cash)
+                            {
+                                pm = "Cash";
+                            }
+                            else
+                            {
+                                pm = "Wallet";
+                            }
+
+                            dialog.dismiss();
+                            km = totalkm + "";
+                            new SendPostRequest(userid, ""+pick_lat, ""+pick_lng, ""+pick, ""+drop_lat, ""+drop_lng, drop, km).execute();
+
+                        }
+                        else
+                        {
+                            Toast.makeText(Drawroutsonmap.this, "Please select a Payment Mode", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+
+
                 //  new SendPostRequest("1","2","3","4","5","6","7","8").execute();
             }
         });
@@ -642,6 +686,7 @@ public class Drawroutsonmap extends AppCompatActivity implements OnMapReadyCallb
                 postDataParams.put("droplocname", droplocname);
                 postDataParams.put("distance", distancekm);
                 postDataParams.put("cartype", cartype);
+                postDataParams.put("paymode", pm);
 
                 Log.e("params", postDataParams.toString());
 

@@ -49,6 +49,11 @@
             android:icon="@drawable/techsupport"
             android:title="Favourite Route" />
 
+        <item
+            android:id="@+id/wallet"
+            android:icon="@drawable/wallet"
+            android:title="Wallet" />
+
 
         <item
             android:id="@+id/nav_logout"

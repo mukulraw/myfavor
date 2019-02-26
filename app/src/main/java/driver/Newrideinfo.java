@@ -40,6 +40,14 @@ public class Newrideinfo {
     @Expose
     private String requrestTime;
 
+    @SerializedName("paymentmode")
+    @Expose
+    private String paymentMode;
+
+    @SerializedName("fair")
+    @Expose
+    private String fair;
+
     public String getRideid() {
         return rideid;
     }
@@ -128,4 +136,19 @@ public class Newrideinfo {
         this.requrestTime = requrestTime;
     }
 
+    public String getFair() {
+        return fair;
+    }
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
+    public void setFair(String fair) {
+        this.fair = fair;
+    }
 }

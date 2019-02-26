@@ -33,8 +33,8 @@ public class Fragment_driver_ride_request extends Fragment {
 
 
     TextView no;
-
-
+    RecyclerView requestlist;
+    SharedPreferences pref;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,14 +42,32 @@ public class Fragment_driver_ride_request extends Fragment {
         //change R.layout.yourlayoutfilename for each of your fragments
         View v = inflater.inflate(R.layout.fragment_driver_ride_request, container, false);
 
-        final RecyclerView requestlist = (RecyclerView) v.findViewById(R.id.rideRequestList);
+        requestlist = (RecyclerView) v.findViewById(R.id.rideRequestList);
 
         no = (TextView) v.findViewById(R.id.no);
 
         requestlist.setLayoutManager(new LinearLayoutManager(getActivity()));
-        SharedPreferences pref = getActivity().getSharedPreferences("Logininfo", Context.MODE_PRIVATE);
+        pref = getActivity().getSharedPreferences("Logininfo", Context.MODE_PRIVATE);
 
-      String  userid = pref.getString("useremail",null);
+
+
+
+        return  v;
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //you can set the title for your toolbar here for different fragments different titles
+        getActivity().setTitle(" Mr. Favor");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        String  userid = pref.getString("useremail",null);
 
         StringRequest request = new StringRequest(url+"?emailid="+userid, new Response.Listener<String>() {
             @Override
@@ -84,15 +102,5 @@ public class Fragment_driver_ride_request extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
-        return  v;
     }
-
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //you can set the title for your toolbar here for different fragments different titles
-        getActivity().setTitle(" Mr. Favor");
-    }
-
 }

@@ -165,12 +165,14 @@ public class DriverPanel extends AppCompatActivity
             Double droplat = SharePreferenceUtils.getInstance().getDouble("droplat");
             Double droplng = SharePreferenceUtils.getInstance().getDouble("droplng");
             String rideID = SharePreferenceUtils.getInstance().getString("rideID");
+            String payMode = SharePreferenceUtils.getInstance().getString("payMode");
+            String fair = SharePreferenceUtils.getInstance().getString("fair");
 
 
             final LatLng startlatlng = new LatLng(Double.parseDouble(String.valueOf(piclat)),Double.parseDouble(String.valueOf(piclng)));
             final LatLng endlatlng = new LatLng(Double.parseDouble(String.valueOf(droplat)),Double.parseDouble(String.valueOf(droplng)));
 
-            acceptbooking(picpoint , droppoint , custname , contactnumber , startlatlng , endlatlng , rideID);
+            acceptbooking(picpoint , droppoint , custname , contactnumber , startlatlng , endlatlng , rideID , payMode , fair);
 
 
         }
@@ -254,7 +256,7 @@ public class DriverPanel extends AppCompatActivity
     }
 
 
-    public void acceptbooking(String picpoint, String droppoint, String custname, String contactnumber, LatLng picLatLng, LatLng dropLatLng, String rideID) {
+    public void acceptbooking(String picpoint, String droppoint, String custname, String contactnumber, LatLng picLatLng, LatLng dropLatLng, String rideID , String payMode , String fair) {
 
 //        Fragment fragment = null;
 //        fragment = new Fragment_accept();
@@ -270,6 +272,8 @@ public class DriverPanel extends AppCompatActivity
         bundle.putExtra("droplat", dropLatLng.latitude);
         bundle.putExtra("droplng", dropLatLng.longitude);
         bundle.putExtra("rideID", rideID);
+        bundle.putExtra("payMode", payMode);
+        bundle.putExtra("fair", fair);
         startActivity(bundle);
 
         // bundle.putDouble("latval",extras.getDouble("latvalue"));

@@ -26,7 +26,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="in.mrfavor.mrfavorapp.Terms"></activity>
+        <activity android:name="in.mrfavor.mrfavorapp.Wallet"></activity>
+        <activity android:name="in.mrfavor.mrfavorapp.Terms" />
         <activity android:name="in.mrfavor.mrfavorapp.SplachActivity" />
         <activity android:name="in.mrfavor.mrfavorapp.MapActivity" />
         <activity android:name="in.mrfavor.mrfavorapp.GetLocationActivity" />
@@ -111,15 +112,21 @@
         <activity
             android:name="in.mrfavor.mrfavorapp.InitialScreenActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="in.mrfavor.mrfavorapp.WebViewActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="in.mrfavor.mrfavorapp.StatusActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_zzqgjVa6cXYdbR"
+            />
+
     </application>
 
 </manifest>

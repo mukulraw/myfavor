@@ -56,7 +56,7 @@ import static java.security.AccessController.getContext;
 public class AcceptAcivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String url = "http://mrfavor.in/myfavour/acceptbooking.php";
-    String picloc,droploc,custname,contactnumber,rideID,userid;
+    String picloc,droploc,custname,contactnumber,rideID,userid , payMode , fair;
     double  piclat,piclng,droplat,droplng;
     LatLng startLatlng,endLatlng;
     MapView mMapView;
@@ -91,6 +91,8 @@ public class AcceptAcivity extends AppCompatActivity implements OnMapReadyCallba
         droplat = ii.getDoubleExtra("droplat",droplat);
         droplng = ii.getDoubleExtra("droplng",droplng);
         rideID = ii.getStringExtra("rideID");
+        payMode = ii.getStringExtra("payMode");
+        fair = ii.getStringExtra("fair");
         startLatlng = new LatLng(piclat,piclng);
         endLatlng = new LatLng(droplat,droplng);
         Toast.makeText(getApplicationContext(),picloc+piclat+piclng+droplat+droplng+droploc+"",Toast.LENGTH_LONG).show();
@@ -164,6 +166,8 @@ public class AcceptAcivity extends AppCompatActivity implements OnMapReadyCallba
         SharePreferenceUtils.getInstance().putDouble("droplng",droplng);
         SharePreferenceUtils.getInstance().putString("rideID",rideID);
         SharePreferenceUtils.getInstance().putString("session","1");
+        SharePreferenceUtils.getInstance().putString("payMode",payMode);
+        SharePreferenceUtils.getInstance().putString("fair", fair);
 
         LatLng startlatlng = new LatLng(piclat,piclng);
         LatLng endlatlng = new LatLng(droplat,droplng);
@@ -184,6 +188,8 @@ public class AcceptAcivity extends AppCompatActivity implements OnMapReadyCallba
             bundle.putDouble("droplat",droplat);
             bundle.putDouble("droplng",droplng);
             bundle.putString("rideID",rideID);
+            bundle.putString("payMode",payMode);
+            bundle.putString("fair",fair);
 
             // bundle.putDouble("latval",extras.getDouble("latvalue"));
             // bundle.putDouble("lngval",extras.getDouble("lngvalue"));

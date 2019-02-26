@@ -1,4 +1,6 @@
 package driver;
+
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,15 +62,16 @@ import java.util.List;
 import static java.security.AccessController.getContext;
 
 public class Fragment_currentbooking extends Fragment implements OnMapReadyCallback {
-   // String baseurl = getResources().getString(R.string.baseurl);
+    // String baseurl = getResources().getString(R.string.baseurl);
     public static final String url = "http://softcode.in/myfavour/acceptbooking.php";
-    String picloc,droploc,custname,contactnumber,rideID,userid;
-    double  piclat,piclng,droplat,droplng;
-    LatLng startLatlng,endLatlng;
+    String picloc, droploc, custname, contactnumber, rideID, userid, payMode, fair;
+    double piclat, piclng, droplat, droplng;
+    LatLng startLatlng, endLatlng;
     MapView mMapView;
-    Button btnStartride,btnCanelride,btnStopride;
+    Button btnStartride, btnCanelride, btnStopride;
     private GoogleMap mMap;
     ArrayList<LatLng> MarkerPoints;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,22 +82,24 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         droploc = getArguments().getString("droppoint");
         custname = getArguments().getString("custname");
         contactnumber = getArguments().getString("contactnumber");
+        payMode = getArguments().getString("payMode");
+        fair = getArguments().getString("fair");
         piclat = getArguments().getDouble("piclat");
         piclng = getArguments().getDouble("piclng");
         droplat = getArguments().getDouble("droplat");
         droplng = getArguments().getDouble("droplng");
-      //  Toast.makeText(getActivity(),piclat+piclng+droplat+droplng+"",Toast.LENGTH_LONG).show();
+        //  Toast.makeText(getActivity(),piclat+piclng+droplat+droplng+"",Toast.LENGTH_LONG).show();
 
-        Toast.makeText(getActivity(),"picklat"+droplat+"piclng"+droplng,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "picklat" + droplat + "piclng" + droplng, Toast.LENGTH_LONG).show();
         rideID = getArguments().getString("rideID");
-        startLatlng = new LatLng(piclat,piclng);
-        endLatlng = new LatLng(droplat,droplng);
+        startLatlng = new LatLng(piclat, piclng);
+        endLatlng = new LatLng(droplat, droplng);
         SharedPreferences pref = getContext().getSharedPreferences("Logininfo", Context.MODE_PRIVATE);
-        userid = pref.getString("useremail",null);
+        userid = pref.getString("useremail", null);
         TextView tvcustname = (TextView) v.findViewById(R.id.tvUsername);
         TextView startride = (TextView) v.findViewById(R.id.tvStartride);
         TextView endride = (TextView) v.findViewById(R.id.tvEndride);
-        tvcustname.setText(custname+" (" + contactnumber + ")");
+        tvcustname.setText(custname + " (" + contactnumber + ")");
         startride.setText(picloc);
         endride.setText(droploc);
         final Button btncancel = (Button) v.findViewById(R.id.btn_canel);
@@ -107,13 +113,12 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
                 SharePreferenceUtils.getInstance().deletePref();
 
                 Intent i = new Intent(getActivity(), Cancelridebydriver.class);
-                i.putExtra("ride",rideID);
+                i.putExtra("ride", rideID);
                 startActivity(i);
             }
         });
 
         btnStartride = (Button) v.findViewById(R.id.btn_start);
-
 
 
         btnStartride.setTypeface(custom_font);
@@ -124,7 +129,7 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
 
                 btncancel.setVisibility(View.GONE);
 
-              getlocationAndPostRequest("StartrideRequest");
+                getlocationAndPostRequest("StartrideRequest");
             }
         });
         Button locationreached = (Button) v.findViewById(R.id.btn_alerttocustomer);
@@ -132,7 +137,7 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         locationreached.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              getlocationAndPostRequest("LocationreachedRequest");
+                getlocationAndPostRequest("LocationreachedRequest");
             }
         });
         Button btnendride = (Button) v.findViewById(R.id.btn_end);
@@ -140,8 +145,42 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         btnendride.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharePreferenceUtils.getInstance().deletePref();
-                getlocationAndPostRequest("endRideRequest");
+
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.ride_end_layout);
+                dialog.show();
+
+
+                TextView amm = dialog.findViewById(R.id.textView15);
+                Button fin = dialog.findViewById(R.id.textView16);
+
+
+                if (payMode.equals("Wallet"))
+                {
+                    amm.setText("\u20B9 00");
+                }
+                else
+                {
+                    amm.setText("\u20B9 " + fair);
+                }
+
+
+
+                fin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                        dialog.dismiss();
+                        SharePreferenceUtils.getInstance().deletePref();
+                        getlocationAndPostRequest("endRideRequest");
+
+                    }
+                });
+
+
             }
         });
         Button nagivation = (Button) v.findViewById(R.id.btn_Navigate);
@@ -149,9 +188,9 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         nagivation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                 intent.setData(Uri.parse("http://maps.google.com/maps?saddr="+piclat+","+piclng+"&daddr="+droplat+","+droplng));
-                     // intent.setData(Uri.parse(url));
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://maps.google.com/maps?saddr=" + piclat + "," + piclng + "&daddr=" + droplat + "," + droplng));
+                // intent.setData(Uri.parse(url));
                 startActivity(intent);
             }
         });
@@ -160,12 +199,13 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         mMapView.onResume(); // needed to get the map to display immediately
         mMapView.getMapAsync(this);
 
-        return  v;
+        return v;
     }
+
     public void getlocationAndPostRequest(String requestfor) // request for LocationreachedRequest/StartrideRequest
     {
         LocationManager locationManager;
-        String lattitude,longitude;
+        String lattitude, longitude;
         final int REQUEST_LOCATION = 1;
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -184,56 +224,54 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            Location location2 = locationManager.getLastKnownLocation(LocationManager. PASSIVE_PROVIDER);
+            Location location2 = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
             if (location != null) {
                 double latti = location.getLatitude();
                 double longi = location.getLongitude();
                 lattitude = String.valueOf(latti);
                 longitude = String.valueOf(longi);
-                setValsforrequest(lattitude,longitude,requestfor);
+                setValsforrequest(lattitude, longitude, requestfor);
                 // Toast.makeText(Firstactivity.this,"Location "+ lattitude+longitude,Toast.LENGTH_LONG).show();
-            } else  if (location1 != null) {
+            } else if (location1 != null) {
                 double latti = location1.getLatitude();
                 double longi = location1.getLongitude();
                 lattitude = String.valueOf(latti);
                 longitude = String.valueOf(longi);
-                setValsforrequest(lattitude,longitude,requestfor);
+                setValsforrequest(lattitude, longitude, requestfor);
                 //  Toast.makeText(Firstactivity.this,"Location 2 "+ lattitude+longitude,Toast.LENGTH_LONG).show();
-            } else  if (location2 != null) {
+            } else if (location2 != null) {
                 double latti = location2.getLatitude();
                 double longi = location2.getLongitude();
                 lattitude = String.valueOf(latti);
                 longitude = String.valueOf(longi);
-                setValsforrequest(lattitude,longitude,requestfor);
+                setValsforrequest(lattitude, longitude, requestfor);
                 // Toast.makeText(Firstactivity.this,"Location 3 "+ lattitude+longitude,Toast.LENGTH_LONG).show();
-            }else{
-                Toast.makeText(getContext(),"Enable to Trace your location",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Enable to Trace your location", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    String startridelat,enstartridelong;
-    private void setValsforrequest(String lattitude, String longitude,String requestfor) {
 
-        if(requestfor.contentEquals("LocationreachedRequest"))
-        {
-            LocationreachedRequest locationreachedRequest = new LocationreachedRequest(Fragment_currentbooking.this,getContext(),rideID,lattitude,longitude);
+    String startridelat, enstartridelong;
+
+    private void setValsforrequest(String lattitude, String longitude, String requestfor) {
+
+        if (requestfor.contentEquals("LocationreachedRequest")) {
+            LocationreachedRequest locationreachedRequest = new LocationreachedRequest(Fragment_currentbooking.this, getContext(), rideID, lattitude, longitude);
             locationreachedRequest.execute();
-        }
-        else if(requestfor.contentEquals("StartrideRequest"))
-        {
-            StartrideRequest startriderequest = new StartrideRequest(Fragment_currentbooking.this,getContext(),rideID,lattitude,longitude);
+        } else if (requestfor.contentEquals("StartrideRequest")) {
+            StartrideRequest startriderequest = new StartrideRequest(Fragment_currentbooking.this, getContext(), rideID, lattitude, longitude);
             startriderequest.execute();
-            startridelat=lattitude;
-            enstartridelong=longitude;
+            startridelat = lattitude;
+            enstartridelong = longitude;
 
-        }
-        else if(requestfor.contentEquals("endRideRequest"))
-        {
-            EndrideRequest endriderequest = new EndrideRequest(Fragment_currentbooking.this,getContext(),rideID,lattitude,longitude,startridelat,enstartridelong);
+        } else if (requestfor.contentEquals("endRideRequest")) {
+            EndrideRequest endriderequest = new EndrideRequest(Fragment_currentbooking.this, getContext(), rideID, lattitude, longitude, startridelat, enstartridelong);
             endriderequest.execute();
         }
     }
-        protected void buildAlertMessageNoGps() {
+
+    protected void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("Please Turn ON your GPS Connection")
                 .setCancelable(false)
@@ -251,14 +289,14 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         alert.show();
     }
 
-        @Override
-        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Current Booking");
     }
 
-//    @Override
+    //    @Override
 //    public void onMapReady(GoogleMap googleMap) {
 //
 //        mMap = googleMap;
@@ -299,7 +337,7 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         String url = getUrl(startLatlng, endLatlng);
         FetchUrl FetchUrl = new FetchUrl();
         // Start downloading json data from Google Directions API
-        Log.d("urlforfetch",url);
+        Log.d("urlforfetch", url);
         FetchUrl.execute(url);
 
         MarkerOptions marker1 = new MarkerOptions().position(startLatlng).title(picloc);
@@ -326,7 +364,8 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         mMap.animateCamera(cu);
 
     }
-        private String getUrl(LatLng origin, LatLng dest) {
+
+    private String getUrl(LatLng origin, LatLng dest) {
         // Origin of route
         String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
         // Destination of route
@@ -334,18 +373,19 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         // Sensor enabled
         String sensor = "sensor=false";
         // Building the parameters to the web service
-            String GOOGLE_API_KEY = "AIzaSyBc5BKE1OW-9_IV39xiyTab5H7YG21awgw";
+        String GOOGLE_API_KEY = "AIzaSyBc5BKE1OW-9_IV39xiyTab5H7YG21awgw";
 
-            // Building the paramet
-            // ers to the web service
-            String parameters = str_origin + "&" + str_dest + "&key=" + GOOGLE_API_KEY;
+        // Building the paramet
+        // ers to the web service
+        String parameters = str_origin + "&" + str_dest + "&key=" + GOOGLE_API_KEY;
         // Output format
         String output = "json";
         // Building the url to the web service
         String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
         return url;
     }
-        private String downloadUrl(String strUrl) throws IOException {
+
+    private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
@@ -400,7 +440,7 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-          ParserTask parserTask = new ParserTask();
+            ParserTask parserTask = new ParserTask();
 
             // Invokes the thread for parsing the JSON data
 
@@ -411,13 +451,13 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
     }
 
 
-
     /**
      * A class to parse the Google Places in JSON format
      */
     private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
         String distandtime;
         double totaldistance;
+
         // Parsing the data in non-ui thread
         @Override
         protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
@@ -427,7 +467,6 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
 
 
             double distancekm = getdistance(jsonData[0]);
-
 
 
             try {
@@ -441,7 +480,7 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
 
 
             } catch (Exception e) {
-                Log.d("ParserTask",e.toString());
+                Log.d("ParserTask", e.toString());
                 e.printStackTrace();
             }
             return routes;
@@ -469,7 +508,7 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
                 duration = durationobj.getString("text");
 
 
-                dist = Double.parseDouble(distancekm.getString("text").replaceAll("[^\\.0123456789]","") );
+                dist = Double.parseDouble(distancekm.getString("text").replaceAll("[^\\.0123456789]", ""));
                 totaldistance = dist;
                 distandtime = duration;
             } catch (JSONException e) {
@@ -479,7 +518,6 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
 
             return dist;
         }
-
 
 
         // Executes in UI thread, after the parsing process
@@ -509,25 +547,23 @@ public class Fragment_currentbooking extends Fragment implements OnMapReadyCallb
                 }
 
 
-
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
                 lineOptions.width(8);
                 lineOptions.color(Color.BLUE);
 
-               // distance.setText("Total Distance: "+totaldistance+" KM (Approx) Takes "+distandtime+" (Approx)");
-                double amt = totaldistance*7+50;
-              //  fair.setText("Total Fair: "+amt+" Rupees");
-                Log.d("onPostExecute","onPostExecute lineoptions decoded");
+                // distance.setText("Total Distance: "+totaldistance+" KM (Approx) Takes "+distandtime+" (Approx)");
+                double amt = totaldistance * 7 + 50;
+                //  fair.setText("Total Fair: "+amt+" Rupees");
+                Log.d("onPostExecute", "onPostExecute lineoptions decoded");
 
             }
 
             // Drawing polyline in the Google Map for the i-th route
-            if(lineOptions != null) {
+            if (lineOptions != null) {
                 mMap.addPolyline(lineOptions);
-            }
-            else {
-                Log.d("onPostExecute","without Polylines drawn");
+            } else {
+                Log.d("onPostExecute", "without Polylines drawn");
             }
         }
     }

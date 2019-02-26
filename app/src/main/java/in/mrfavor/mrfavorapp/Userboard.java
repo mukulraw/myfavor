@@ -605,6 +605,13 @@ public class Userboard extends AppCompatActivity implements NavigationView.OnNav
             }
 
         }
+        else if (id == R.id.wallet)
+        {
+
+            Intent intent = new Intent(Userboard.this , Wallet.class);
+            startActivity(intent);
+
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

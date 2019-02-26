@@ -34,7 +34,7 @@ Newrideinfo[] data;
     public void onBindViewHolder(RideinfoViewHolder holder, final int position) {
 
 
-                 Newrideinfo info = data[position];
+                 final Newrideinfo info = data[position];
 
                  final String picplace = info.getPickPlaceName();
         final String dropplace = info.getDropPlaceName();
@@ -66,7 +66,7 @@ Newrideinfo[] data;
                           //       intent.setData(Uri.parse(url));
                          //context.startActivity(intent);
 
-                         ((DriverPanel)context).acceptbooking(picplace,dropplace,custname,"9911669023",startlatlng,endlatlng,rideid);
+                         ((DriverPanel)context).acceptbooking(picplace,dropplace,custname,"9911669023",startlatlng,endlatlng,rideid , info.getPaymentMode() , info.getFair());
 
                      }
                  });
